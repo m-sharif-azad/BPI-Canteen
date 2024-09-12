@@ -3,4 +3,5 @@
 
 ### what already works:
 - Auth app (login/registration)
-- 
+- database tables created on canteen_app/models.py
+
