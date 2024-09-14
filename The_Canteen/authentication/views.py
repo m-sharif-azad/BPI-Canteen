@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from canteen.models import Customer
+
 from .models import *
 
 # Define a view function for the home page
@@ -45,7 +47,7 @@ def register_page(request):
 		firstname = request.POST.get('firstname')
 		lastname = request.POST.get('lastname')
 		email = request.POST.get('email')
-		phone = request.POST.get('phone')
+		phone_number = request.POST.get('phone')
 		address = request.POST.get('address')
 		zipcode = request.POST.get('zipcode')
 		city = request.POST.get('city')
@@ -62,16 +64,23 @@ def register_page(request):
 			return redirect('/register/')
 		
 		# Create a new User object with the provided information
-		user = User.objects.create_user(
+		user = Customer.objects.create(
 			firstname=firstname,
 			lastname=lastname,
 			email=email,
-			phone=phone,
+			phone_number=phone_number,
 			address=address,
 			zipcode=zipcode,
 			city=city,
 			country=country,
-			username=username
+		)
+		user.save()
+		
+		user = User.objects.create_user(
+			first_name=firstname,
+			last_name=lastname,
+			email=email,
+			username=username,
 		)
 		
 		# Set the user's password and save the user object
