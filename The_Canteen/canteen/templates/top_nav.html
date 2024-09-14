@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+  <title>{% block title %}{% endblock %}</title>
+  <style>
+    /* Navigation Bar Styles */
+    .topnav {
+      background-color: #007BFF; 
+      overflow: hidden;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .topnav a {
+      color: #ffffff; 
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      margin: 0 5px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease; 
+    }
+
+    .topnav a:hover {
+      background-color: #0056b3; 
+      color: #ffffff; 
+    }
+
+    .topnav a.active {
+      background-color: #003d7a; 
+      color: white;
+    }
+
+    .topnav .right-links {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .topnav .right-links a {
+      margin-left: 10px;
+    }
+
+    .topnav .welcome-text {
+      margin-left: 10px;
+      margin-right: 10px;
+      color: green; 
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topnav">
+    <a href="/welcome">HOME</a>
+    <a href="/contact">CONTACT</a>
+    <a href="/testing">TESTING</a>
+
+    <!-- Right-side Links -->
+    <div class="right-links">
+      <a href="/admin">ADMIN</a>
+      <a href="/">LOGOUT</a>
+      <span class="welcome-text">Hello {{request.user.first_name}}</span>
+    </div>
+  </div>
+
+  {% block content %}
+  {% endblock %}
+
+</body>
+</html>
