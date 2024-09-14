@@ -42,8 +42,14 @@ def login_page(request):
 def register_page(request):
 	# Check if the HTTP request method is POST (form submission)
 	if request.method == 'POST':
-		first_name = request.POST.get('first_name')
-		last_name = request.POST.get('last_name')
+		firstname = request.POST.get('firstname')
+		lastname = request.POST.get('lastname')
+		email = request.POST.get('email')
+		phone = request.POST.get('phone')
+		address = request.POST.get('address')
+		zipcode = request.POST.get('zipcode')
+		city = request.POST.get('city')
+		country = request.POST.get('country')
 		username = request.POST.get('username')
 		password = request.POST.get('password')
 		
@@ -57,8 +63,14 @@ def register_page(request):
 		
 		# Create a new User object with the provided information
 		user = User.objects.create_user(
-			first_name=first_name,
-			last_name=last_name,
+			firstname=firstname,
+			lastname=lastname,
+			email=email,
+			phone=phone,
+			address=address,
+			zipcode=zipcode,
+			city=city,
+			country=country,
 			username=username
 		)
 		
