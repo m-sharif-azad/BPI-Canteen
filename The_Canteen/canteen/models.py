@@ -14,9 +14,6 @@ class Customer(models.Model):
     country = models.CharField(max_length=60,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.name
-
 
 # Menu_Item Table
 class MenuItem(models.Model):
@@ -25,10 +22,6 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)  
     category = models.CharField(max_length=50)
     availability = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.name
-
 
 # Order Table
 class Order(models.Model):
@@ -46,9 +39,6 @@ class Order(models.Model):
     ], default='Unpaid')
     delivery_address = models.TextField(blank=True, null=True)  # Optional, if different from customer address
 
-    def __str__(self):
-        return f"Order {self.id} - {self.customer.name}"
-
 
 # Order_Item Table
 class OrderItem(models.Model):
@@ -57,10 +47,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
     item_price = models.DecimalField(max_digits=8, decimal_places=2)
 
-    def __str__(self):
-        return f"{self.quantity} x {self.item.name} (Order {self.order.id})"
-
-
+   
 # Payment Table
 class Payment(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
@@ -76,10 +63,7 @@ class Payment(models.Model):
         ('Failed', 'Failed')
     ])
 
-    def __str__(self):
-        return f"Payment {self.id} - {self.order}"
-
-
+    
 # Delivery Table
 class Delivery(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
@@ -91,5 +75,4 @@ class Delivery(models.Model):
         ('Delivered', 'Delivered')
     ], default='Pending')
 
-    def __str__(self):
-        return f"Delivery {self.id} - {self.order}"
+
