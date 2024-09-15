@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.core.mail import send_mail
 from django.conf import settings
+from .models import MenuItem, Order, OrderItem, Customer, Payment
 
 
 # Create your views here.
@@ -14,8 +15,12 @@ def testing(request):
 
 # order page
 def order(request):
-    template = loader.get_template('order.html')
-    return HttpResponse(template.render(request=request))
+  menuitems = MenuItem.objects.all().values()
+  template = loader.get_template('order.html')
+  context = {
+    'menuitems': menuitems,
+  }
+  return HttpResponse(template.render(context, request))
 
 # contact page
 def contact(request):
