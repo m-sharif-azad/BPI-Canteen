@@ -81,7 +81,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <p>Total Items: {{ selected_items|length }}</p>
+    <p>Total Items: {{ selected_items|length }}, <span> Total Price: {{ total_price }} €</span></p>
 {% else %}
     <p>Your basket is empty.</p>
 {% endif %}
