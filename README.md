@@ -6,7 +6,10 @@
 
 ### progress update / what already works:
 - Auth app (login/registration) 
-- Contact form created - to send an email to the chef :)
+- Contact form - to send an email to the chef :)
+- Food ordering partly working - marked food is moving to the basket
+
+
 
 
 
