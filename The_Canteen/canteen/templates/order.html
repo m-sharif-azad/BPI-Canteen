@@ -57,33 +57,59 @@
     .table-container {
       margin: 20px 0;
     }
+
+   
+    button[type="submit"] {
+      background-color: #009879;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px; 
+      display: inline-block; 
+    }
+
+    button[type="submit"]:hover {
+      background-color: #007f67;
+    }
   </style>
   
   <div class="table-container">
-    <table class="styled-table">
-      <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Availability</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for x in menuitems %}
-          <tr>
-            <td>{{ x.id }}</td>
-            <td>{{ x.name }}</td>
-            <td>{{ x.description }}</td>
-            <td>{{ x.price }} €</td>
-            <td>{{ x.category }}</td>
-            <td>{{ x.availability }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <form method="POST" action="{% url 'order' %}">
+        {% csrf_token %}
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Availability</th>
+                    <th>Select</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in menuitems %}
+                    <tr>
+                        <td>{{ x.id }}</td>
+                        <td>{{ x.name }}</td>
+                        <td>{{ x.description }}</td>
+                        <td>{{ x.price }} €</td>
+                        <td>{{ x.category }}</td>
+                        <td>{{ x.availability }}</td>
+                        <td>
+                            <input type="checkbox" name="selected_items" value="{{ x.id }}">
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Submit</button> <
+    </form>
+  </div> 
 </div>
 {% endblock %}
