@@ -2,7 +2,7 @@
 
 ***The project is under construction!***
 
-## It will include login/registration, order system and order management with email notifications, contact form, payment system (?) and possibly some data exports. The project is in the early stages of development. More info comming soon.
+## It will include login/registration, order system and order management with email notifications, contact form, payment system (?) and possibly some data exports.
 
 ### progress update / what already works:
 - Auth app (login/registration) 
