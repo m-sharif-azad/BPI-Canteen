@@ -58,7 +58,11 @@
       margin: 20px 0;
     }
 
-   
+    .button-container {
+      text-align: right; 
+      margin-top: 20px; 
+    }
+
     button[type="submit"] {
       background-color: #009879;
       color: #ffffff;
@@ -68,8 +72,6 @@
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 20px; 
-      display: inline-block; 
     }
 
     button[type="submit"]:hover {
@@ -103,12 +105,14 @@
                         <td>{{ x.availability }}</td>
                         <td>
                             <input type="checkbox" name="selected_items" value="{{ x.id }}">
-                        </td> 
+                        </td> <!-- Checkbox in each row -->
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <button type="submit">Submit</button> <
+        <div class="button-container">
+            <button type="submit">Place Order</button>
+        </div>
     </form>
   </div> 
 </div>
