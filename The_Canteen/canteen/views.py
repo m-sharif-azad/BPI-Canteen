@@ -10,12 +10,16 @@ from .models import MenuItem, Order, OrderItem, Customer, Payment
 
 # order page
 def order(request):
-  menuitems = MenuItem.objects.all().values()
-  template = loader.get_template('order.html')
-  context = {
-    'menuitems': menuitems,
-  }
-  return HttpResponse(template.render(context, request))
+    if request.method == "POST":
+        selected_items_ids = request.POST.getlist('selected_items')
+        selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
+        
+        # Redirect to basket.html page and pass selected items
+        return render(request, 'basket.html', {'selected_items': selected_items})
+    
+    # Fetch your menu items from the database
+    menuitems = MenuItem.objects.all()
+    return render(request, 'order.html', {'menuitems': menuitems})
 
 # shopping basket page
 def basket(request):
