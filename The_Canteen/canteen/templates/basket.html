@@ -54,6 +54,25 @@
     .table-container {
       margin: 20px 0;
     }
+    .button-container {
+      text-align: left; 
+      margin-top: 20px; 
+    }
+
+    button[type="submit"] {
+      background-color: #009879;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #007f67;
+    }
 </style>
 
 {% if selected_items %}
@@ -82,7 +101,11 @@
         </tbody>
     </table>
     <p>Total Items: {{ selected_items|length }}, <span> Total Price: {{ total_price }} €</span></p>
+    <div class="button-container">
+      <button type="submit">Checkout</button>
+    </div>
 {% else %}
     <p>Your basket is empty.</p>
+
 {% endif %}
 {% endblock %}
