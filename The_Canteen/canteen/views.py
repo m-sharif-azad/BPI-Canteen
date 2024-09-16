@@ -13,9 +13,10 @@ def order(request):
     if request.method == "POST":
         selected_items_ids = request.POST.getlist('selected_items')
         selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
+        total_price = sum(item.price for item in selected_items)
         
         # Redirect to basket.html page and pass selected items
-        return render(request, 'basket.html', {'selected_items': selected_items})
+        return render(request, 'basket.html', {'selected_items': selected_items, 'total_price': total_price})
     
     # Fetch your menu items from the database
     menuitems = MenuItem.objects.all()
