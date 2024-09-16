@@ -8,11 +8,6 @@ from .models import MenuItem, Order, OrderItem, Customer, Payment
 
 # Create your views here.
 
-# test page
-def testing(request):
-    template = loader.get_template('testing.html')
-    return HttpResponse(template.render(request=request))
-
 # order page
 def order(request):
   menuitems = MenuItem.objects.all().values()
@@ -21,6 +16,11 @@ def order(request):
     'menuitems': menuitems,
   }
   return HttpResponse(template.render(context, request))
+
+# shopping basket page
+def basket(request):
+    template = loader.get_template('basket.html')
+    return HttpResponse(template.render(request=request))
 
 # contact page
 def contact(request):
@@ -44,3 +44,8 @@ def contact(request):
         context['success_message'] = "Thank you! Your message has been sent successfully."
 
     return HttpResponse(template.render(context, request))
+
+# test page
+def testing(request):
+    template = loader.get_template('testing.html')
+    return HttpResponse(template.render(request=request))
