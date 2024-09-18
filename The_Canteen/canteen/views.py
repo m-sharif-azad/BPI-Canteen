@@ -6,8 +6,6 @@ from django.conf import settings
 from .models import MenuItem, Order, OrderItem, Customer, Payment
 
 
-# Create your views here.
-
 # order page
 def order(request):
     if request.method == "POST":
@@ -19,20 +17,13 @@ def order(request):
         # Redirect to basket.html page and pass selected items
         return render(request, 'basket.html', {'selected_items': selected_items, 'total_price': total_price, 'customer': customer})
     
-    # Fetch your menu items from the database
     menuitems = MenuItem.objects.all()
     return render(request, 'order.html', {'menuitems': menuitems})
 
 # shopping basket page
 def basket(request):
-    # Fetch the customer data for the currently logged-in user
-    try:
-        customer = Customer.objects.get(user=request.user)
-    except Customer.DoesNotExist:
-        customer = None  # Handle case where customer doesn't exist
-    context = {'customer': customer}
     template = loader.get_template('basket.html')
-    return HttpResponse(template.render(request, context))
+    return HttpResponse(template.render(request=request))
 
 # contact page
 def contact(request):
