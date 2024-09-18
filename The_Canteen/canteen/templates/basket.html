@@ -89,7 +89,6 @@
       padding: 10px;
     }
 
-    
 </style>
 
 {% if selected_items %}
@@ -118,24 +117,31 @@
         </tbody>
     </table>
     
-    <div class="grid-container">
-      <div class="item1">
-        <h2>Select delivery method:</h2>
-        <h4>Self Collection <input type="checkbox" name="self_collection"> free </h4>
-        <h4>Delivery <input type="checkbox" name="delivery"> + 2 € </h4>
+    <form method="POST" action="{% url 'order' %}">
+      {% csrf_token %}
+      <div class="grid-container">
+        <!-- Delivery Method -->
+        <div class="item1">
+          <h2>Select delivery method:</h2>
+          <h4>Self Collection <input type="radio" name="delivery_method" value="self_collection"> free </h4>
+          <h4>Delivery <input type="radio" name="delivery_method" value="delivery"> + 2 € </h4>
+        </div>
+        
+        <!-- Payment Method -->
+        <div class="item2">
+          <h2>Select payment method:</h2>
+          <h4>Cash on collection <input type="radio" name="payment_method" value="cash"> free </h4>
+          <h4>Bank Transfer <input type="radio" name="payment_method" value="bank_transfer"> free </h4> 
+        </div>
       </div>
-      <div class="item2">
-        <h2>Select payment method:</h2>
-        <h4>Cash on collection <input type="checkbox" name="cash_payment"> free </h4>
-        <h4>Bank Transfer <input type="checkbox" name="bank_transfer"> free  </h4> 
+      
+      <p style="text-align: right; font-weight: bold;">Total Items: {{ selected_items|length }}, <span> Total Price: {{ total_price }} €</span></p>
+      
+      <div class="button-container">
+        <button type="submit">Checkout</button>
       </div>
-    </div>
+    </form>
     
-    <p style="text-align: right; font-weight: bold;">Total Items: {{ selected_items|length }}, <span> Total Price: {{ total_price }} €</span></p>
-    
-    <div class="button-container">
-      <button type="submit">Checkout</button>
-    </div>
 {% else %}
     <p>Your basket is empty.</p>
 
