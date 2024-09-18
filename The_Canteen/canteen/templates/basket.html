@@ -98,88 +98,100 @@
 
 </style>
 
-{% if selected_items %}
-    <table class="styled-table">
-        <thead>
+{{% if selected_items %}
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Availability</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in selected_items %}
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Availability</th>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }} €</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.availability }}</td>
             </tr>
-        </thead>
-        <tbody>
-            {% for item in selected_items %}
-                <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }} €</td>
-                    <td>{{ item.category }}</td>
-                    <td>{{ item.availability }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-    <form method="POST" action="{% url 'order' %}">
-      {% csrf_token %}
-      <div class="grid-container">
-        <!-- Delivery Method -->
-        <div class="item1">
-          <h2>Select delivery method:</h2>
-          <h4>Self Collection <input type="radio" name="delivery_method" value="self_collection"> free </h4>
-          <h4>Delivery <input type="radio" name="delivery_method" value="delivery"> + 2 € </h4>
-          <!-- Message to display when 'Delivery' is selected -->
-          <div id="delivery-message" class="hidden-message">
-              {% if customer %}
-                  Your food will be delivered to {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}.
-              {% else %}
-                  No delivery address found.
-              {% endif %}
-          </div>
-      </div>
-        
-        <!-- Payment Method -->
-        <div class="item2">
-          <h2>Select payment method:</h2>
-          <h4>Cash on collection <input type="radio" name="payment_method" value="cash"> free </h4>
-          <h4>Bank Transfer <input type="radio" name="payment_method" value="bank_transfer"> free </h4> 
-        </div>
-      </div>
-      
-      <p style="text-align: right; font-weight: bold;">Total Items: {{ selected_items|length }}, <span> Total Price: {{ total_price }} €</span></p>
-      
-      <div class="button-container">
-        <button type="submit">Checkout</button>
-      </div>
-    </form>
-    
-{% else %}
-    <p>Your basket is empty.</p>
+        {% endfor %}
+    </tbody>
+</table>
 
+<form method="POST" action="{% url 'order' %}">
+  {% csrf_token %}
+  <div class="grid-container">
+    <div class="item1">
+      <h2>Select delivery method:</h2>
+      <h4>Self Collection 
+          <input type="radio" name="delivery_method" value="self_collection" checked> free 
+      </h4>
+      <h4>Delivery 
+          <input type="radio" name="delivery_method" value="delivery"> + 2 € 
+      </h4>
+      <div id="delivery-message" class="hidden-message">
+          {% if customer %}
+              Your food will be delivered to {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}.
+          {% else %}
+              No delivery address found.
+          {% endif %}
+      </div>
+    </div>
+    <div class="item2">
+      <h2>Select payment method:</h2>
+      <h4>Cash on collection <input type="radio" name="payment_method" value="cash_payment"> free </h4>
+      <h4>Bank Transfer <input type="radio" name="payment_method" value="bank_transfer"> free  </h4> 
+    </div>
+  </div>
+
+  <p style="text-align: right; font-weight: bold;">
+    Total Items: {{ selected_items|length }}, 
+    <span id="total-price"> Total Price: {{ total_price }} €</span>
+  </p>
+
+  <div class="button-container">
+    <button type="submit">Checkout</button>
+  </div>
+</form>
+
+{% else %}
+<p>Your basket is empty.</p>
 {% endif %}
 
 <script>
-  // Get the radio buttons and the message div
-  const deliveryRadio = document.querySelector('input[name="delivery_method"][value="delivery"]');
-  const selfCollectionRadio = document.querySelector('input[name="delivery_method"][value="self_collection"]');
-  const deliveryMessage = document.getElementById('delivery-message');
+document.addEventListener("DOMContentLoaded", function () {
+    const deliveryFee = 2; // Define the delivery fee
+    let baseTotalPrice = {{ total_price }}; // Get the base total price from the server
+    const totalPriceElement = document.getElementById('total-price');
+    const deliveryMessage = document.getElementById('delivery-message');
+    const deliveryRadio = document.querySelector('input[name="delivery_method"][value="delivery"]');
+    const selfCollectionRadio = document.querySelector('input[name="delivery_method"][value="self_collection"]');
 
-  // Add event listeners to the radio buttons
-  deliveryRadio.addEventListener('change', function() {
-    if (this.checked) {
-      deliveryMessage.style.display = 'block'; // Show delivery message
-    }
-  });
+    // Function to update the total price based on selected delivery method
+    function updateTotalPrice() {
+        let totalPrice = baseTotalPrice;
 
-  selfCollectionRadio.addEventListener('change', function() {
-    if (this.checked) {
-      deliveryMessage.style.display = 'none'; // Hide delivery message
+        if (deliveryRadio.checked) {
+            totalPrice += deliveryFee;
+            deliveryMessage.style.display = 'block'; // Show delivery message
+        } else {
+            deliveryMessage.style.display = 'none'; // Hide delivery message
+        }
+
+        // Update the total price on the page
+        totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
     }
-  });
+
+    // Add event listeners for both radio buttons
+    deliveryRadio.addEventListener('change', updateTotalPrice);
+    selfCollectionRadio.addEventListener('change', updateTotalPrice);
+});
 </script>
 
 {% endblock %}
