@@ -21,7 +21,7 @@ def order(request):
         # Redirect to basket.html page and pass selected items
         return render(request, 'basket.html', {
             'selected_items': selected_items,
-            'total_price': total_food_price,
+            'total_food_price': total_food_price,
             'customer': customer,
             'delivery_fee': delivery_fee,
             'total_price':total_price
