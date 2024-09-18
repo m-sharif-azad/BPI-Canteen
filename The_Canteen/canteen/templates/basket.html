@@ -89,6 +89,13 @@
       padding: 10px;
     }
 
+    .hidden-message {
+      display: none;
+      font-weight: bold;
+      color: #009879;
+      margin-top: 10px;
+    }
+
 </style>
 
 {% if selected_items %}
@@ -125,6 +132,10 @@
           <h2>Select delivery method:</h2>
           <h4>Self Collection <input type="radio" name="delivery_method" value="self_collection"> free </h4>
           <h4>Delivery <input type="radio" name="delivery_method" value="delivery"> + 2 € </h4>
+          <!-- Message to display when 'Delivery' is selected -->
+          <div id="delivery-message" class="hidden-message">
+            Your food will be delivered to your address from the Customer table.
+          </div>
         </div>
         
         <!-- Payment Method -->
@@ -146,4 +157,25 @@
     <p>Your basket is empty.</p>
 
 {% endif %}
+
+<script>
+  // Get the radio buttons and the message div
+  const deliveryRadio = document.querySelector('input[name="delivery_method"][value="delivery"]');
+  const selfCollectionRadio = document.querySelector('input[name="delivery_method"][value="self_collection"]');
+  const deliveryMessage = document.getElementById('delivery-message');
+
+  // Add event listeners to the radio buttons
+  deliveryRadio.addEventListener('change', function() {
+    if (this.checked) {
+      deliveryMessage.style.display = 'block'; // Show delivery message
+    }
+  });
+
+  selfCollectionRadio.addEventListener('change', function() {
+    if (this.checked) {
+      deliveryMessage.style.display = 'none'; // Hide delivery message
+    }
+  });
+</script>
+
 {% endblock %}
