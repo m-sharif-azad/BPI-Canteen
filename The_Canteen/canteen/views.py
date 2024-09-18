@@ -24,8 +24,10 @@ def order(request):
 
 # shopping basket page
 def basket(request):
+    customer = Customer.objects.get(user=request.user)
+    context = {'customer': customer}
     template = loader.get_template('basket.html')
-    return HttpResponse(template.render(request=request))
+    return HttpResponse(template.render(request, context))
 
 # contact page
 def contact(request):
