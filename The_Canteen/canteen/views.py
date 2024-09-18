@@ -4,7 +4,9 @@ from django.template import loader
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import MenuItem, Order, OrderItem, Customer, Payment
+from django.contrib.auth.decorators import login_required
 
+@login_required
 
 # order page
 def order(request):
@@ -13,7 +15,7 @@ def order(request):
         selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
         total_price = sum(item.price for item in selected_items)
         customer = Customer.objects.get(user=request.user)
-        
+
         # Redirect to basket.html page and pass selected items
         return render(request, 'basket.html', {'selected_items': selected_items, 'total_price': total_price, 'customer': customer})
     
