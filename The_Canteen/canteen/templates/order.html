@@ -7,7 +7,7 @@
 
 {% block content %}
  
-<h2 style="text-align: center; color: blue;">Food ordering</h2>
+<h2 style="text-align: center; color: blue;">Today's Menu</h2>
 
 <div>
   <style>
@@ -105,7 +105,7 @@
                         <td>{{ x.availability }}</td>
                         <td>
                             <input type="checkbox" name="selected_items" value="{{ x.id }}">
-                        </td> <!-- Checkbox in each row -->
+                        </td> 
                     </tr>
                 {% endfor %}
             </tbody>
