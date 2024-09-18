@@ -152,7 +152,7 @@
 
   <p style="text-align: right; font-weight: bold;">
     Total Items: {{ selected_items|length }}, 
-    <span id="total-price"> Total Price: {{ total_price }} €</span>
+    <span id="total-price"> Total Price = Food price {{ total_food_price }} + Delivery fee {{ delivery_fee }} = {{ total_price }} €</span>
   </p>
 
   <div class="button-container">
@@ -167,7 +167,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const deliveryFee = 2; // Define the delivery fee
-    let baseTotalPrice = {{ total_price }}; // Get the base total price from the server
+    let baseTotalPrice = {{ total_food_price }}; // Get the base total price from the server
     const totalPriceElement = document.getElementById('total-price');
     const deliveryMessage = document.getElementById('delivery-message');
     const deliveryRadio = document.querySelector('input[name="delivery_method"][value="delivery"]');
