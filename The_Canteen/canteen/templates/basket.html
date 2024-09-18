@@ -134,9 +134,13 @@
           <h4>Delivery <input type="radio" name="delivery_method" value="delivery"> + 2 € </h4>
           <!-- Message to display when 'Delivery' is selected -->
           <div id="delivery-message" class="hidden-message">
-            Your food will be delivered to your address from the Customer table.
+              {% if customer %}
+                  Your food will be delivered to {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}.
+              {% else %}
+                  No delivery address found.
+              {% endif %}
           </div>
-        </div>
+      </div>
         
         <!-- Payment Method -->
         <div class="item2">

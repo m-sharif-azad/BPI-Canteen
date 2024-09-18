@@ -14,9 +14,10 @@ def order(request):
         selected_items_ids = request.POST.getlist('selected_items')
         selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
         total_price = sum(item.price for item in selected_items)
+        customer = Customer.objects.get(user=request.user)
         
         # Redirect to basket.html page and pass selected items
-        return render(request, 'basket.html', {'selected_items': selected_items, 'total_price': total_price})
+        return render(request, 'basket.html', {'selected_items': selected_items, 'total_price': total_price, 'customer': customer})
     
     # Fetch your menu items from the database
     menuitems = MenuItem.objects.all()
@@ -24,7 +25,11 @@ def order(request):
 
 # shopping basket page
 def basket(request):
-    customer = Customer.objects.get(user=request.user)
+    # Fetch the customer data for the currently logged-in user
+    try:
+        customer = Customer.objects.get(user=request.user)
+    except Customer.DoesNotExist:
+        customer = None  # Handle case where customer doesn't exist
     context = {'customer': customer}
     template = loader.get_template('basket.html')
     return HttpResponse(template.render(request, context))
