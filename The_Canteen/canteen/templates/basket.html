@@ -127,36 +127,45 @@
     </tbody>
 </table>
 
+<!-- Form to select delivery and payment method -->
 <form method="POST" action="{% url 'order' %}">
   {% csrf_token %}
   <div class="grid-container">
     <div class="item1">
       <h2>Select delivery method:</h2>
       <h4>Self Collection 
-          <input type="radio" name="delivery_method" value="self_collection" checked> free 
+          <input type="radio" name="delivery_method" value="self_collection"> free 
       </h4>
       <h4>Delivery 
           <input type="radio" name="delivery_method" value="delivery"> + 2 € 
       </h4>
-      <div id="delivery-message" class="hidden-message">
-          {% if customer %}
-              Your food will be delivered to: {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}.
-          {% else %}
-              No delivery address found.
-          {% endif %}
-      </div>
+      <p> In case of delivery, we will deliver the food to your address: 
+        <span style="font-weight: bold;">{{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}</span>
+      </p>
     </div>
     <div class="item2">
-      <h2>Select payment method:</h2>
-      <h4>Cash on collection <input type="radio" name="payment_method" value="cash_payment"> free </h4>
-      <h4>Bank Transfer <input type="radio" name="payment_method" value="bank_transfer"> free  </h4> 
+      <h2>Payment method:</h2>
+      <div id="delivery-message" class="hidden-message">
+          {% if customer %}
+              Cash or by card at the counter.
+          {% else %}
+              No customer found.
+          {% endif %}
+      </div>
+      <div id="delivery-message2" class="hidden-message">
+        {% if customer %}
+            Cash or by card to the delivery person.
+        {% else %}
+            No delivery address found.
+        {% endif %}
+    </div>
     </div>
   </div>
 
-  <p style="text-align: right; font-weight: bold;">
+  <h2 style="text-align: right; font-weight: bold;">
     Total Items: {{ selected_items|length }}, 
     <span id="total-price"> Total Price {{ total_food_price }} €</span>
-  </p>
+  </h2>
 
   <div class="button-container">
     <button type="submit">Checkout</button>
@@ -169,10 +178,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const deliveryFee = 2; // Define the delivery fee
+    const deliveryFee = {{ delivery_fee}}; // Get the delivery fee from the server
     let baseTotalPrice = {{ total_food_price }}; // Get the base total price from the server
     const totalPriceElement = document.getElementById('total-price');
     const deliveryMessage = document.getElementById('delivery-message');
+    const deliveryMessage2 = document.getElementById('delivery-message2');
     const deliveryRadio = document.querySelector('input[name="delivery_method"][value="delivery"]');
     const selfCollectionRadio = document.querySelector('input[name="delivery_method"][value="self_collection"]');
 
@@ -182,6 +192,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (deliveryRadio.checked) {
             totalPrice += deliveryFee;
+            deliveryMessage2.style.display = 'block'; // Show delivery message
+        } else {
+            deliveryMessage2.style.display = 'none'; // Hide delivery message
+        }
+        if (selfCollectionRadio.checked) {
             deliveryMessage.style.display = 'block'; // Show delivery message
         } else {
             deliveryMessage.style.display = 'none'; // Hide delivery message
