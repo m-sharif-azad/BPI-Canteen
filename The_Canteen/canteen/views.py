@@ -11,14 +11,14 @@ from django.contrib.auth.decorators import login_required
 # order page
 def order(request):
     if request.method == "POST":
-        delivery_fee = 2
+        delivery_fee = 2 # hardcoded fee - should be taken from database later
         total_price  = 0
         selected_items_ids = request.POST.getlist('selected_items')
         selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
         total_food_price = sum(item.price for item in selected_items)
         customer = Customer.objects.get(user=request.user)
 
-        # Redirect to basket.html page and pass selected items
+        # redirect to basket.html page and pass selected items
         return render(request, 'basket.html', {
             'selected_items': selected_items,
             'total_food_price': total_food_price,
