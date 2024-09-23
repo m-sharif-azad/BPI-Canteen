@@ -1,0 +1,87 @@
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .styled-table th, .styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+  }
+
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  .styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+
+  .styled-table td {
+    text-align: left;
+  }
+
+  .table-container {
+    margin: 20px 0;
+  }
+  .button-container {
+    text-align: right; 
+    margin-top: 20px; 
+  }
+
+  button[type="submit"] {
+    background-color: #009879;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #007f67;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
+    background-color: #dddddd;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .grid-container > div{
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 0;
+    padding: 10px;
+  }
+
+  .hidden-message {
+    display: none;
+    font-weight: bold;
+    color: #009879;
+    margin-top: 10px;
+  }
