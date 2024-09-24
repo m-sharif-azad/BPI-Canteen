@@ -49,9 +49,9 @@ def basket(request):
         # Add delivery fee to total price if applicable
         final_total_price = total_food_price + delivery_fee
 
-        # send email to customer
+        # send email confirmation to customer
         subject = 'Order Confirmation'
-        message = f'Hi {User.username}, your order has been received.'
+        message = f'Hi {customer.firstname}, your order has been received.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [customer.email, ]
         send_mail( subject, message, email_from, recipient_list )
