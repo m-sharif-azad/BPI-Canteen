@@ -42,10 +42,10 @@
     <div class="item1">
       <h2>Select delivery method:</h2>
       <h4>Self Collection 
-          <input type="radio" name="delivery_method" value="self_collection"> free 
+          <input type="radio" name="delivery_method" value="self_collection" required> free 
       </h4>
       <h4>Delivery 
-          <input type="radio" name="delivery_method" value="delivery"> + 2 € 
+          <input type="radio" name="delivery_method" value="delivery" required> + 2 € 
       </h4>
       <p> In case of delivery we will deliver to: 
         <span style="font-weight: bold;">{{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}</span>
