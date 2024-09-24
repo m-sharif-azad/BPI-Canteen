@@ -1,13 +1,19 @@
 #  Django web app for ordering food in the canteen.
 
-***The project is under construction!***
+***The project is stil under construction - but it's already working on 90% :) Try it!***
 
-## It will include login/registration, order system and order management with email notifications, contact form and some form of payment (?) and delivery (?)
+## Includes login/registration, ordering system and order management with email notifications, contact form and some form of payment and delivery
 
-### progress update / what already works:
+### What already works:
 - Auth app (login/registration) 
+- Food ordering
+- Email confirmation
 - Contact form - to send an email to the chef :)
-- Food ordering working 
+
+#### What's next:
+ - menu for all the week (not only for today)
+ - order numbers 
+ - improve payment and delivery
 
 
 
