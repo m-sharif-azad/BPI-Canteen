@@ -30,12 +30,19 @@
 </table>
 
 <h3>Total Items ordered: {{ total_items }}</h3>
-<h3>Total Price: {{ total_price }} €</h3>
+<h3>Total Price: {{ total_price }} € {% if delivery_method == "delivery" %} including delivery fee {% endif %}</h3>
 <h3>Delivery Method: 
     {% if delivery_method == "delivery" %}
-    Your food will be delivered to: {{ customer.firstname}}, {{ customer.lastname}} {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}
+    Your food will be delivered to: {{ customer.firstname}} {{ customer.lastname}}, {{ customer.address }}, {{ customer.zipcode }} {{ customer.city }}
     {% else %}
         Self Collection
+    {% endif %}
+</h3>
+<h3>Payment Method: 
+    {% if delivery_method == "delivery" %}
+    Cash or Card to be paid on delivery
+    {% else %}
+    Cash or Card on collection
     {% endif %}
 </h3>
 
