@@ -6,6 +6,34 @@
 
 {% block content %}
 
+<style>
+    h2 {
+    font-size: 26px;
+    margin-top: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Styling the order summary box */
+.order-summary {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 700px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+/* Styling the text inside the order summary */
+.order-summary h3 {
+    color: #009879;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+</style>
+
 <h2 style="text-align: center;">Thank you for your order, its details are as follows:</h2>
 
 <table class="styled-table">
@@ -30,8 +58,8 @@
 </table>
 
 <div class="order-summary">
-    <h3>Total Items ordered: {{ total_items }}</h3>
     <h3>Total Price: {{ total_price }} € {% if delivery_method == "delivery" %} including delivery fee {% endif %}</h3>
+    <h3>Total Items ordered: {{ total_items }}</h3>
     <h3>Delivery Method: 
         {% if delivery_method == "delivery" %}
         Your food will be delivered to: {{ customer.firstname}} {{ customer.lastname}}, {{ customer.address }}, {{ customer.zipcode }} {{ customer.city }}
