@@ -13,6 +13,9 @@ def order(request):
     if request.method == "POST":
         delivery_fee = 2 # hardcoded fee - should be taken from database later
         total_price  = 0
+        global selected_items
+        global total_food_price
+
         selected_items_ids = request.POST.getlist('selected_items')
         selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
         total_food_price = sum(item.price for item in selected_items)
@@ -32,6 +35,32 @@ def order(request):
 
 # shopping basket page
 def basket(request):
+    if request.method == 'POST':
+        # Get selected items from POST data
+        global selected_items
+        global total_food_price
+
+        # Calculate total price
+        #total_price = sum(item.price for item in selected_items)
+
+        # Check which delivery method was selected
+        delivery_method = request.POST.get('delivery_method')
+        delivery_fee = 2 if delivery_method == 'delivery' else 0
+
+        # Add delivery fee to total price if applicable
+        final_total_price = total_food_price + delivery_fee
+
+        # Prepare data for the final page
+        context = {
+            'selected_items': selected_items,
+            'total_items': len(selected_items),
+            'total_price': final_total_price,
+            'delivery_method': delivery_method,
+        }
+
+        # Redirect to final.html and pass order details
+        return render(request, 'final.html', context)
+    
     template = loader.get_template('basket.html')
     return HttpResponse(template.render(request=request))
 
