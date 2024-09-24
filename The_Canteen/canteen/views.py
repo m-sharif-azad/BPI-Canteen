@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import MenuItem, Order, OrderItem, Customer, Payment
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 @login_required
 
@@ -37,13 +38,9 @@ def order(request):
 # shopping basket page
 def basket(request):
     if request.method == 'POST':
-        # Get selected items from POST data
         global selected_items
         global total_food_price
         global customer
-
-        # Calculate total price
-        #total_price = sum(item.price for item in selected_items)
 
         # Check which delivery method was selected
         delivery_method = request.POST.get('delivery_method')
@@ -51,6 +48,13 @@ def basket(request):
 
         # Add delivery fee to total price if applicable
         final_total_price = total_food_price + delivery_fee
+
+        # send email to customer
+        subject = 'Order Confirmation'
+        message = f'Hi {User.username}, your order has been received.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [customer.email, ]
+        send_mail( subject, message, email_from, recipient_list )
 
         # Prepare data for the final page
         context = {
