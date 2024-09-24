@@ -33,7 +33,7 @@
 <h3>Total Price: {{ total_price }} €</h3>
 <h3>Delivery Method: 
     {% if delivery_method == "delivery" %}
-    Your food will be delivered to: {{ customer.first_name}}, {{ customer.last_name}} {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}
+    Your food will be delivered to: {{ customer.firstname}}, {{ customer.lastname}} {{ customer.address }}, {{ customer.zipcode }}, {{ customer.city }}
     {% else %}
         Self Collection
     {% endif %}
