@@ -1,0 +1,42 @@
+{% extends "top_nav.html" %}
+
+{% block title %}
+  Final Order Summary
+{% endblock %}
+
+{% block content %}
+
+<h2>Your Order Summary</h2>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in selected_items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }} €</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Total Items: {{ total_items }}</h3>
+<h3>Total Price: {{ total_price }} €</h3>
+<h3>Delivery Method: 
+    {% if delivery_method == "delivery" %}
+        Delivery (+ 2 €)
+    {% else %}
+        Self Collection
+    {% endif %}
+</h3>
+
+{% endblock %}
