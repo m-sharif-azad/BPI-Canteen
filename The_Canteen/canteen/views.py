@@ -35,6 +35,11 @@ def basket(request):
     template = loader.get_template('basket.html')
     return HttpResponse(template.render(request=request))
 
+# final page - order summary
+def final(request):
+    template = loader.get_template('final.html')
+    return HttpResponse(template.render(request=request))
+
 # contact page
 def contact(request):
     template = loader.get_template('contact.html')
