@@ -15,6 +15,7 @@ def order(request):
         total_price  = 0
         global selected_items
         global total_food_price
+        global customer
 
         selected_items_ids = request.POST.getlist('selected_items')
         selected_items = MenuItem.objects.filter(id__in=selected_items_ids)
@@ -39,6 +40,7 @@ def basket(request):
         # Get selected items from POST data
         global selected_items
         global total_food_price
+        global customer
 
         # Calculate total price
         #total_price = sum(item.price for item in selected_items)
@@ -56,6 +58,7 @@ def basket(request):
             'total_items': len(selected_items),
             'total_price': final_total_price,
             'delivery_method': delivery_method,
+            'customer': customer,
         }
 
         # Redirect to final.html and pass order details
