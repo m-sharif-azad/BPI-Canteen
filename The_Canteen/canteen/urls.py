@@ -7,5 +7,6 @@ urlpatterns = [
     path('testing/', views.testing, name="testing"), # Test page
     path('contact/', views.contact, name="contact"), # Contact page
     path('basket/', views.basket, name="basket"), # Shopping Basket page
+    path('final/', views.final, name="final"), # Final page - Order Summary
 ]
 
