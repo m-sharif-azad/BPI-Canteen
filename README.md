@@ -7,7 +7,8 @@
 ### progress update / what already works:
 - Auth app (login/registration) 
 - Contact form - to send an email to the chef :)
-- Food ordering partly working - selected food is moving to the basket and it's possible to do some operations in the basket.
+- Food ordering working 
+
 
 
 
