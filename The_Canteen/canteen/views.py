@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 @login_required
 
-# order page
+# MENU page (order.html)
 def order(request):
     if request.method == "POST":
         delivery_fee = 2 # hardcoded fee - should be taken from database later
@@ -35,7 +35,7 @@ def order(request):
     menuitems = MenuItem.objects.all()
     return render(request, 'order.html', {'menuitems': menuitems})
 
-# shopping basket page
+# Shopping basket page
 def basket(request):
     if request.method == 'POST':
         global selected_items
@@ -49,7 +49,7 @@ def basket(request):
         # Add delivery fee to total price if applicable
         final_total_price = total_food_price + delivery_fee
 
-        # send email confirmation to customer
+        # Send email confirmation to customer
         subject = 'Order Confirmation'
         message = f'Hi {customer.firstname}, your order has been received.'
         email_from = settings.EMAIL_HOST_USER
@@ -65,18 +65,18 @@ def basket(request):
             'customer': customer,
         }
 
-        # Redirect to final.html and pass order details
+        # Redirect to final.html page
         return render(request, 'final.html', context)
     
     template = loader.get_template('basket.html')
     return HttpResponse(template.render(request=request))
 
-# final page - order summary
+# Final page - order summary
 def final(request):
     template = loader.get_template('final.html')
     return HttpResponse(template.render(request=request))
 
-# contact page
+# Contact page
 def contact(request):
     template = loader.get_template('contact.html')
     context = {}
